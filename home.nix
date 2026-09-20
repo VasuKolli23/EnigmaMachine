@@ -34,7 +34,7 @@
 
     # editors
     kdePackages.kate
-    gedit
+    libreoffice
 
     # browser
     vivaldi
@@ -47,6 +47,9 @@
 
     # development
     devenv
+
+    # remote desktop
+    omnissa-horizon-client
   ];
 
   programs.home-manager.enable = true;

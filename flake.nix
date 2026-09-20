@@ -13,16 +13,13 @@
     };
     
     # nixos version of neovim
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixvim.url = "github:nix-community/nixvim";
   };
 
   outputs = { self, nixpkgs, home-manager, nixvim, ... }@inputs: {
     nixosConfigurations = {
-      # "nixos" is your hostname. If you change your hostname, change this too!
-      nixos = nixpkgs.lib.nixosSystem {
+      # This must match your hostname (networking.hostName).
+      EngimaMachine = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix

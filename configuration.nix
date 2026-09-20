@@ -14,6 +14,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Small 256M ESP shared with Windows; cap retained generations.
+  boot.loader.systemd-boot.configurationLimit = 3;
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -23,7 +26,7 @@
   # Compressed RAM swap (no disk swap partition on this machine).
   zramSwap.enable = true;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "EngimaMachine"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary

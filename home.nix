@@ -54,9 +54,9 @@
 
   programs.git = {
     enable = true;
-    userName = "Vasu Kolli";
-    userEmail = "vasukolli23@gmail.com";
-    extraConfig = {
+    settings = {
+      user.name = "Vasu Kolli";
+      user.email = "vasukolli23@gmail.com";
       init.defaultBranch = "main";
       pull.rebase = true;
       push.autoSetupRemote = true;
@@ -66,6 +66,7 @@
 
   programs.vscode.enable = true;
   programs.starship.enable = true;
+  programs.eza.enable = true;
   
   programs.nixvim = {
     enable = true;

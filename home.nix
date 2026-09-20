@@ -34,7 +34,7 @@
 
     # editors
     kdePackages.kate
-    libreoffice
+    libreoffice-qt
 
     # browser
     vivaldi

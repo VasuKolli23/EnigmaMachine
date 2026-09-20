@@ -57,6 +57,9 @@
   # asus config (ROG Strix G15 Advantage Edition, all-AMD)
   services.asusd.enable = true;
 
+  # GPU mode switching (integrated / hybrid / dedicated) for the RX 6800M.
+  services.supergfxd.enable = true;
+
   # Redistributable firmware (Wi-Fi/Bluetooth firmware, AMD microcode).
   hardware.enableRedistributableFirmware = true;
 
@@ -74,6 +77,10 @@
 
   # Power management (integrates with Plasma's power slider).
   services.power-profiles-daemon.enable = true;
+
+  # nixos-hardware's common-pc-laptop enables TLP by default, which conflicts
+  # with power-profiles-daemon. Keep power-profiles-daemon for the Plasma slider.
+  services.tlp.enable = false;
 
   # SSD/NVMe periodic TRIM.
   services.fstrim.enable = true;

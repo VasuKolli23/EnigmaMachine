@@ -17,15 +17,26 @@
 
     # Declarative Flatpak management
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    # Hardware quirk modules (AMD CPU/GPU, laptop power tuning)
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, nixos-hardware, ... }@inputs: {
     nixosConfigurations = {
       # This must match your hostname (networking.hostName).
       EngimaMachine = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
+
+          # nixos-hardware: shared quirks for this all-AMD ROG Strix laptop
+          # (no dedicated G513QY profile exists, so use the common modules).
+          nixos-hardware.nixosModules.common-cpu-amd
+          nixos-hardware.nixosModules.common-cpu-amd-pstate
+          nixos-hardware.nixosModules.common-gpu-amd
+          nixos-hardware.nixosModules.common-pc-laptop
+          nixos-hardware.nixosModules.common-pc-laptop-ssd
 
           # Make home-manager a module of nixos
           home-manager.nixosModules.home-manager

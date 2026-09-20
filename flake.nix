@@ -14,16 +14,19 @@
     
     # nixos version of neovim
     nixvim.url = "github:nix-community/nixvim";
+
+    # Declarative Flatpak management
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
-  outputs = { self, nixpkgs, home-manager, nixvim, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixvim, nix-flatpak, ... }@inputs: {
     nixosConfigurations = {
       # This must match your hostname (networking.hostName).
       EngimaMachine = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          
+
           # Make home-manager a module of nixos
           home-manager.nixosModules.home-manager
           {
@@ -38,6 +41,7 @@
                 imports = [ 
                     ./home.nix 
                     nixvim.homeModules.nixvim
+                    nix-flatpak.homeManagerModules.nix-flatpak
                 ];
             };
           }

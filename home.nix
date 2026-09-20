@@ -88,4 +88,16 @@
       shown_boxes = "cpu mem proc";
     };
   };
+
+  # Flatpak support with declarative packages via nix-flatpak.
+  services.flatpak = {
+    enable = true;
+    remotes = [
+      {
+        name = "flathub";
+        location = "https://flathub.org/repo/flathub.flatpakrepo";
+      }
+    ];
+    packages = [ "com.surfshark.Surfshark" ];
+  };
 }

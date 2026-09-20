@@ -69,7 +69,16 @@
 
   programs.vscode.enable = true;
   programs.starship.enable = true;
-  programs.eza.enable = true;
+  programs.eza = {
+    enable = true;
+    icons = "auto";
+    enableBashIntegration = true;
+    extraOptions = [
+      "--group-directories-first"
+      "--header"
+      "--all"
+    ];
+  };
   
   programs.nixvim = {
     enable = true;

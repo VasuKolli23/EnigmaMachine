@@ -17,6 +17,12 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Load the AMD GPU driver early for clean KMS/boot.
+  boot.initrd.kernelModules = [ "amdgpu" ];
+
+  # Compressed RAM swap (no disk swap partition on this machine).
+  zramSwap.enable = true;
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -45,8 +51,32 @@
     LC_TIME = "de_DE.UTF-8";
   };
   
-  # asus config
+  # asus config (ROG Strix G15 Advantage Edition, all-AMD)
   services.asusd.enable = true;
+
+  # Redistributable firmware (Wi-Fi/Bluetooth firmware, AMD microcode).
+  hardware.enableRedistributableFirmware = true;
+
+  # AMD Radeon RX 6800M graphics.
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # Bluetooth.
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  # Power management (integrates with Plasma's power slider).
+  services.power-profiles-daemon.enable = true;
+
+  # SSD/NVMe periodic TRIM.
+  services.fstrim.enable = true;
+
+  # Better performance for games.
+  programs.gamemode.enable = true;
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
@@ -91,6 +121,7 @@
 
   # nix settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.auto-optimise-store = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).

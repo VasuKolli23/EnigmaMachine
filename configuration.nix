@@ -26,6 +26,9 @@
   # Compressed RAM swap (no disk swap partition on this machine).
   zramSwap.enable = true;
 
+  # NTFS read/write support (e.g. for Windows partitions and external drives).
+  boot.supportedFilesystems = [ "ntfs" ];
+
   networking.hostName = "EngimaMachine"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

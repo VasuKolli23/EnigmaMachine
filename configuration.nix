@@ -169,6 +169,35 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+
+  # --- Omnissa Horizon Client: YubiKey support ---
+
+  # PC/SC smart-card daemon. The Horizon client's bundled OpenSC PKCS#11
+  # module talks to this to read a YubiKey in PIV/smart-card mode for
+  # broker (login) authentication.
+  services.pcscd.enable = true;
+
+  # udev rules so the YubiKey is accessible to your user.
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+
+  # USB redirection: forwards the raw YubiKey into the remote desktop
+  # (needed for FIDO2/U2F or when smart-card redirection is not used).
+  # The arbitrator expects /run/omnissa/<your-uid> to exist and be owned
+  # by you (vkolli's default uid is 1000).
+  systemd.tmpfiles.rules = [
+    "d /run/omnissa 0755 root root -"
+    "d /run/omnissa/1000 0700 vkolli users -"
+  ];
+
+  systemd.services.horizon-eucusbarbitrator = {
+    description = "Omnissa Horizon USB redirection arbitrator";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.omnissa-horizon-client}/bin/horizon-eucusbarbitrator";
+      Restart = "on-failure";
+    };
+  };
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

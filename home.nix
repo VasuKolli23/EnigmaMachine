@@ -51,6 +51,10 @@
 
     # remote desktop
     omnissa-horizon-client
+
+    # yubikey / smartcard
+    pcsc-tools
+    yubikey-manager
   ];
 
   programs.home-manager.enable = true;

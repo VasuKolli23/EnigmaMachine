@@ -76,6 +76,8 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    # Experimental enables battery-level reporting (shown in Plasma's applet).
+    settings.General.Experimental = true;
   };
 
   # Power management (integrates with Plasma's power slider).

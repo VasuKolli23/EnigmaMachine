@@ -47,6 +47,7 @@
 
     # development
     devenv
+    kdePackages.yakuake
 
     # remote desktop
     omnissa-horizon-client
